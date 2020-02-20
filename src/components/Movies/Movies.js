@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import './Movies.css';
+import { connect } from 'react-redux';
+import { getData } from '../../actions/actions';
 
 class Movies extends Component {
   constructor() {
@@ -8,15 +11,15 @@ class Movies extends Component {
     };
   }
 
-  getData = () => {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v1/movies')
-      .then(response => response.json())
-      .then(movies => this.setState({ movies: movies.movies }))
-      .catch(error => console.log(error));
-  };
+  //   getData = () => {
+  //     fetch('https://rancid-tomatillos.herokuapp.com/api/v1/movies')
+  //       .then(response => response.json())
+  //       .then(movies => this.setState({ movies: movies.movies }))
+  //       .catch(error => console.log(error));
+  //   };
 
   componentDidMount = () => {
-    this.getData();
+    this.props.getData();
   };
 
   render() {
@@ -34,4 +37,16 @@ class Movies extends Component {
   }
 }
 
-export default Movies;
+const mapStateToProps = state => ({
+  movies: state.movies
+});
+
+const mapDispatchToProps = dispatch => ({
+  getData: () => {
+    dispatch(getData());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Movies);
+
+// export default Movies;
