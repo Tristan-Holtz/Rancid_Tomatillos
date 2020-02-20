@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import './Movies.css';
+<<<<<<< HEAD
+import { connect } from 'react-redux';
+// import { getData } from '../../actions/actions';
+=======
 import MovieDetails from '../MovieDetails/MovieDetails'
+>>>>>>> master
 
 class Movies extends Component {
   constructor() {
@@ -40,5 +45,17 @@ class Movies extends Component {
     return <section className='movie-cards-section'>{movieCards}</section>;
   }
 }
+
+// const mapStateToProps = state => ({
+//   movies: state.movies
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   getData: () => {
+//     dispatch(getData());
+//   }
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Movies);
 
 export default Movies;
