@@ -34,3 +34,17 @@ main {
   overflow: auto;
   width: 100%;
 }
+
+.form-error {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  text-align: center;
+  margin: 5px;
+}
+
+button {
+  cursor: pointer;
+}

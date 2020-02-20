@@ -42,6 +42,20 @@ class Movies extends Component {
     //   );
     // });
     // return <section className="movie-cards-section">{movieCards}</section>;
+    // const { movies } = this.state;
+    // return <MovieDetails movies={movies} />
+    // const movieCards = movies.map(movie => {
+    //   return (
+    //     <article className="movie-card" key={movie.id}>
+    //       <img className="movie-card-image" src={movie.poster_path} />
+    //       <h1>{movie.title}</h1>
+    //       <h3>Avg. rating: {movie.average_rating}</h3>
+    //       <h3>Your rating:</h3>
+    //       <button>Details</button>
+    //     </article>
+    //   );
+    // });
+    // return <section className="movie-cards-section">{movieCards}</section>;
   }
 }
 
