@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './Movies.css';
-<<<<<<< HEAD
 import { connect } from 'react-redux';
 // import { getData } from '../../actions/actions';
-=======
-import MovieDetails from '../MovieDetails/MovieDetails'
->>>>>>> master
+import MovieDetails from '../MovieDetails/MovieDetails';
 
 class Movies extends Component {
   constructor() {
@@ -30,11 +27,11 @@ class Movies extends Component {
     // for the time being, toggle the line of code below as active/inactive
     // to switch between different components rendering
     const { movies } = this.state;
-    return <MovieDetails movies={movies}/>
+    return <MovieDetails movies={movies} />;
     const movieCards = movies.map(movie => {
       return (
-        <article className='movie-card' key={movie.id}>
-          <img className='movie-card-image' src={movie.poster_path}/>
+        <article className="movie-card" key={movie.id}>
+          <img className="movie-card-image" src={movie.poster_path} />
           <h1>{movie.title}</h1>
           <h3>Avg. rating: {movie.average_rating}</h3>
           {/* <p>{movie.release_date}</p> */}
@@ -42,7 +39,7 @@ class Movies extends Component {
         </article>
       );
     });
-    return <section className='movie-cards-section'>{movieCards}</section>;
+    return <section className="movie-cards-section">{movieCards}</section>;
   }
 }
 
