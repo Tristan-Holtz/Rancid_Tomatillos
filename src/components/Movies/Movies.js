@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './Movies.css';
+<<<<<<< HEAD
 import { connect } from 'react-redux';
 // import { getData } from '../../actions/actions';
+=======
+import MovieDetails from '../MovieDetails/MovieDetails'
+>>>>>>> master
 
 class Movies extends Component {
   constructor() {
@@ -23,17 +27,22 @@ class Movies extends Component {
   };
 
   render() {
+    // for the time being, toggle the line of code below as active/inactive
+    // to switch between different components rendering
     const { movies } = this.state;
+    return <MovieDetails movies={movies}/>
     const movieCards = movies.map(movie => {
       return (
-        <article key={movie.id}>
+        <article className='movie-card' key={movie.id}>
+          <img className='movie-card-image' src={movie.poster_path}/>
           <h1>{movie.title}</h1>
-          <p>{movie.release_date}</p>
-          <p>{movie.overview}</p>
+          <h3>Avg. rating: {movie.average_rating}</h3>
+          {/* <p>{movie.release_date}</p> */}
+          {/* <p>{movie.overview}</p> */}
         </article>
       );
     });
-    return <section>{movieCards}</section>;
+    return <section className='movie-cards-section'>{movieCards}</section>;
   }
 }
 
