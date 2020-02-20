@@ -37,3 +37,13 @@ label {
   padding: 0.25em;
   width: 20%;
 }
+
+.form-error {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  text-align: center;
+  margin: 5px;
+}

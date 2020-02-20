@@ -27,7 +27,7 @@ class Movies extends Component {
     // for the time being, toggle the line of code below as active/inactive
     // to switch between different components rendering
     const { movies } = this.state;
-    return <MovieDetails movies={movies} />;
+    return <MovieDetails movies={movies} />
     const movieCards = movies.map(movie => {
       return (
         <article className="movie-card" key={movie.id}>
