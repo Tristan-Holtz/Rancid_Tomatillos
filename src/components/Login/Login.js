@@ -23,6 +23,8 @@ export default class Login extends Component {
       this.setState({error: 'Incorrect name entered.'})
     } if(this.state.password !== 'abc123') {
       this.setState({error: 'Incorrect password entered.'})
+    } else {
+      console.log('correct login')
     }
   }
 

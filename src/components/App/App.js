@@ -9,8 +9,8 @@ class App extends Component {
   render() {
     return (
       <main>
-        <Header />
-        <Login />
+        {/* <Header />
+        <Login /> */}
         <Movies />
       </main>
     );
