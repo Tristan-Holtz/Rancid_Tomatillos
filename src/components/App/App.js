@@ -13,14 +13,14 @@ class App extends Component {
       <Router>
         <main>
           <Switch>
-            <Route exact path='/login'   component={Login} />
-            <Route path='/' component={Header} />
+            <Route exact path="/login" component={Login} />
+            <Route path="/" component={Header} />
           </Switch>
-          <Route exact path='/' component={Movies} />
-          <Route exact path='/movies/:id' component={MovieDetails}/>
+          <Route exact path="/" component={Movies} />
+          <Route exact path="/movies/:id" component={MovieDetails} />
         </main>
       </Router>
-    )
+    );
   }
 }
 
