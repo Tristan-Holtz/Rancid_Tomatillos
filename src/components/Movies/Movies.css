@@ -1,0 +1,18 @@
+.movie-cards-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.movie-card {
+  border: red 3px solid;
+  height: 375px;
+  width: 200px;
+  margin: 15px;
+}
+
+.movie-card-image {
+  height: 250px;
+  width: 200px;
+}
