@@ -16,7 +16,6 @@ describe('moviesReducer', () => {
       type: 'SET_MOVIES',
       movies: mockMovie
     }
-    const mockState = [{movie: 'mock movie 1'}]
     const result = moviesReducer(undefined, mockAction)
     expect(result).toEqual(expected)
   })
