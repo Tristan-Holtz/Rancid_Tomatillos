@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import './Login.scss';
+import { connect } from 'react-redux';
+import { setUser } from '../../actions/actions'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
       name: '',
       password: '',
-      error: ''
+      email: '',
+      nameError: '',
+      emailError: '',
+      passwordError: ''
     };
   }
 
@@ -17,15 +22,20 @@ export default class Login extends Component {
 
   verifyInputs = (event) => {
     event.preventDefault()
-    if(this.state.name !== 'Greg' && this.state.password !== 'abc123') {
-      return this.setState({error: 'Incorrect name and password entered.'})
-    } if(this.state.name !== 'Greg') {
-      this.setState({error: 'Incorrect name entered.'})
+    if(this.state.name !== 'Greg') {
+      this.setState({nameError: 'Incorrect name entered.'})
+    } if(this.state.email !== 'greg@turing.io') {
+      this.setState({emailError: 'Incorrect email entered.'})
     } if(this.state.password !== 'abc123') {
-      this.setState({error: 'Incorrect password entered.'})
+      this.setState({passwordError: 'Incorrect password entered.'})
     } else {
-      console.log('correct login')
+      this.createUser()
     }
+  }
+
+  createUser = () => {
+    const user = {name: this.state.name, email: this.state.email, password: this.state.password}
+    this.props.setUser(user)
   }
 
   render() {
@@ -39,6 +49,16 @@ export default class Login extends Component {
           placeholder="Name"
         >
         </input>
+        <p className='error'>{this.state.nameError}</p>
+        <label htmlFor="login-email">Email</label>
+        <input
+          onChange={this.handleChange}
+          name="email"
+          id="login-email"
+          placeholder="Email"
+        >
+        </input>
+        <p className='error'>{this.state.emailError}</p>
         <label htmlFor="login-password">Password</label>
         <input
           onChange={this.handleChange}
@@ -47,6 +67,7 @@ export default class Login extends Component {
           placeholder="Password"
           >
         </input>
+        <p className='error'>{this.state.passwordError}</p>
         <button onClick={this.verifyInputs}>Login</button>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>
@@ -55,3 +76,15 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => {
+    dispatch(setUser(user));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
