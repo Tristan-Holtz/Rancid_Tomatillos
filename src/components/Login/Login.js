@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import './Login.scss';
+import { connect } from 'react-redux';
+import { setUser } from '../../actions/actions'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
       name: '',
       password: '',
+      email: '',
       error: ''
     };
   }
@@ -17,15 +20,27 @@ export default class Login extends Component {
 
   verifyInputs = (event) => {
     event.preventDefault()
-    if(this.state.name !== 'Greg' && this.state.password !== 'abc123') {
+    if(this.state.name !== 'Greg' && this.state.email !== 'greg@turing.io' && this.state.password !== 'abc123') {
+      return this.setState({error: 'Incorrect name, email, and password entered.'})
+    } if(this.state.name !== 'Greg' && this.state.password !== 'abc123') {
       return this.setState({error: 'Incorrect name and password entered.'})
+    } if(this.state.name !== 'Greg' && this.state.email !== 'greg@turing.io') {
+      return this.setState({error: 'Incorrect name and email entered.'})
+    } if(this.state.email !== 'greg@turing.io' && this.state.password !== 'abc123') {
+      return this.setState({error: 'Incorrect email and password entered.'})
     } if(this.state.name !== 'Greg') {
       this.setState({error: 'Incorrect name entered.'})
     } if(this.state.password !== 'abc123') {
       this.setState({error: 'Incorrect password entered.'})
     } else {
       console.log('correct login')
+      this.createUser()
     }
+  }
+
+  createUser = () => {
+    const user = {name: this.state.name, email: this.state.email, password: this.state.password}
+    this.props.setUser(user)
   }
 
   render() {
@@ -37,6 +52,14 @@ export default class Login extends Component {
           name="name"
           id="login-name"
           placeholder="Name"
+        >
+        </input>
+        <label htmlFor="login-email">Email</label>
+        <input
+          onChange={this.handleChange}
+          name="email"
+          id="login-email"
+          placeholder="Email"
         >
         </input>
         <label htmlFor="login-password">Password</label>
@@ -55,3 +78,15 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => {
+    dispatch(setUser(user));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
