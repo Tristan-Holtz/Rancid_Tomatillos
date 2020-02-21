@@ -10,7 +10,9 @@ class Login extends Component {
       name: '',
       password: '',
       email: '',
-      error: ''
+      nameError: '',
+      emailError: '',
+      passwordError: ''
     };
   }
 
@@ -20,20 +22,13 @@ class Login extends Component {
 
   verifyInputs = (event) => {
     event.preventDefault()
-    if(this.state.name !== 'Greg' && this.state.email !== 'greg@turing.io' && this.state.password !== 'abc123') {
-      return this.setState({error: 'Incorrect name, email, and password entered.'})
-    } if(this.state.name !== 'Greg' && this.state.password !== 'abc123') {
-      return this.setState({error: 'Incorrect name and password entered.'})
-    } if(this.state.name !== 'Greg' && this.state.email !== 'greg@turing.io') {
-      return this.setState({error: 'Incorrect name and email entered.'})
-    } if(this.state.email !== 'greg@turing.io' && this.state.password !== 'abc123') {
-      return this.setState({error: 'Incorrect email and password entered.'})
-    } if(this.state.name !== 'Greg') {
-      this.setState({error: 'Incorrect name entered.'})
+    if(this.state.name !== 'Greg') {
+      this.setState({nameError: 'Incorrect name entered.'})
+    } if(this.state.email !== 'greg@turing.io') {
+      this.setState({emailError: 'Incorrect email entered.'})
     } if(this.state.password !== 'abc123') {
-      this.setState({error: 'Incorrect password entered.'})
+      this.setState({passwordError: 'Incorrect password entered.'})
     } else {
-      console.log('correct login')
       this.createUser()
     }
   }
@@ -54,6 +49,7 @@ class Login extends Component {
           placeholder="Name"
         >
         </input>
+        <p className='error'>{this.state.nameError}</p>
         <label htmlFor="login-email">Email</label>
         <input
           onChange={this.handleChange}
@@ -62,6 +58,7 @@ class Login extends Component {
           placeholder="Email"
         >
         </input>
+        <p className='error'>{this.state.emailError}</p>
         <label htmlFor="login-password">Password</label>
         <input
           onChange={this.handleChange}
@@ -70,6 +67,7 @@ class Login extends Component {
           placeholder="Password"
           >
         </input>
+        <p className='error'>{this.state.passwordError}</p>
         <button onClick={this.verifyInputs}>Login</button>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>

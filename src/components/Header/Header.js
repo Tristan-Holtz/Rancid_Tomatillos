@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import './Header.scss';
+import { connect } from 'react-redux';
+
 
 class Header extends Component {
   render() {
+    const { user } = this.props;
+    console.log(user)
+    
+
     return (
       <header>
         <p>username</p>
@@ -13,4 +19,9 @@ class Header extends Component {
   }
 }
 
-export default Header;
+
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default connect(mapStateToProps)(Header);
