@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './Login.scss';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUser } from '../../actions/actions';
-import { getUser } from '../../apiCalls';
+import { setUser, setRatings } from '../../actions/actions';
+import { getUser, getRatings } from '../../apiCalls';
 
 
 class Login extends Component {
@@ -27,17 +27,26 @@ class Login extends Component {
     (this.state.email !== 'greg@turing.io') && this.setState({emailError: 'Incorrect email entered.'});
     (this.state.password !== 'abc123') && this.setState({passwordError: 'Incorrect password entered.'});
     await this.createUser();
+    await this.getSetRatings()
     if (!this.state.error) { this.setState({name: '', email: '', password: ''}) };
   }
 
   createUser = async () => {
     try {
       const { email, password } = this.state;
-      const user = await getUser(email, password)
+      const user = await getUser(email, password);
       await this.props.setUser(user.user)
     } catch ({message}) {
       this.setState({ message})
     }
+  }
+
+  getSetRatings = async () => {
+    const { user } = this.props;
+    let userID = user.id;
+    const ratings = await getRatings(userID);
+    let userRatings = ratings.ratings;
+    this.props.setRatings(userRatings)
   }
 
   render() {
@@ -80,7 +89,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setUser: (user) => {dispatch(setUser(user))}
+  setUser: (user) => {dispatch(setUser(user))},
+  setRatings: ratings => {dispatch(setRatings(ratings))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
