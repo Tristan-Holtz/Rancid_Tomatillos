@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import './Login.scss';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setUser } from '../../actions/actions';
 import { getUser } from '../../apiCalls';
-import { Link } from 'react-router-dom';
 
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
       password: '',
       email: '',
       emailError: '',
-      passwordError: ''
+      passwordError: '',
+      error: ''
     };
   }
 
@@ -22,47 +22,31 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  verifyInputs = () => {
-    return this.props.user ? true : false
-  }
-
   handleSubmit = async (e) => {
     e.preventDefault();
-    await this.createUser();
     (this.state.email !== 'greg@turing.io') && this.setState({emailError: 'Incorrect email entered.'});
-    await (this.state.password !== 'abc123') && this.setState({passwordError: 'Incorrect password entered.'});
-    await this.verifyInputs();
+    (this.state.password !== 'abc123') && this.setState({passwordError: 'Incorrect password entered.'});
+    await this.createUser();
+    if (!this.state.error) { this.setState({name: '', email: '', password: ''}) };
   }
 
-  createUser = () => {
-    const { email, password } = this.state;
-    const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/login';
-    const postOptions = {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        password
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  createUser = async () => {
+    try {
+      const { email, password } = this.state;
+      const user = await getUser(email, password)
+      await this.props.setUser(user.user)
+    } catch ({message}) {
+      this.setState({ message})
     }
-    return getUser(url, postOptions)
-      .then(data => this.props.setUser(data.user))
-      .catch(error => console.log(error))
   }
 
   render() {
+    const { user } = this.props
+    if (user.name) {
+      return <Redirect to='/'></Redirect>
+    }
     return (
-      <form className="login-form">
-        <label htmlFor="login-name">Name</label>
-        <input
-          onChange={this.handleChange}
-          name="name"
-          id="login-name"
-          placeholder="Name"
-        >
-        </input>
+      <form className="login-form" onSubmit={async (e) => await this.handleSubmit(e)}>
         <p className='error'>{this.state.nameError}</p>
         <label htmlFor="login-email">Email</label>
         <input
@@ -82,9 +66,7 @@ class Login extends Component {
           >
         </input>
         <p className='error'>{this.state.passwordError}</p>
-        <Link to={'/'} >
-          <div>Enter</div>
-        </Link>
+        <button>Enter</button>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>
         </div>
