@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './Login.scss';
 import { connect } from 'react-redux';
-import { setUser } from '../../actions/actions'
+import { setUser } from '../../actions/actions';
+import { getUser } from '../../apiCalls';
+import { Link } from 'react-router-dom';
+
 
 class Login extends Component {
   constructor() {
@@ -10,7 +13,6 @@ class Login extends Component {
       name: '',
       password: '',
       email: '',
-      nameError: '',
       emailError: '',
       passwordError: ''
     };
@@ -22,9 +24,7 @@ class Login extends Component {
 
   verifyInputs = (event) => {
     event.preventDefault()
-    if(this.state.name !== 'Greg') {
-      this.setState({nameError: 'Incorrect name entered.'})
-    } if(this.state.email !== 'greg@turing.io') {
+    if(this.state.email !== 'greg@turing.io') {
       this.setState({emailError: 'Incorrect email entered.'})
     } if(this.state.password !== 'abc123') {
       this.setState({passwordError: 'Incorrect password entered.'})
@@ -33,9 +33,21 @@ class Login extends Component {
     }
   }
 
-  createUser = () => {
-    const user = {name: this.state.name, email: this.state.email, password: this.state.password}
-    this.props.setUser(user)
+  createUser = async () => {
+    const { email, password } = this.state;
+    const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/login';
+    const postOptions = {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    const user = await getUser(url, postOptions)
+    this.props.setUser(user.user)
   }
 
   render() {
@@ -68,7 +80,9 @@ class Login extends Component {
           >
         </input>
         <p className='error'>{this.state.passwordError}</p>
-        <button onClick={this.verifyInputs}>Login</button>
+        <Link to={'/movies'} >
+          <div onClick={(e) => this.verifyInputs(e)} >Enter</div>
+        </Link>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>
         </div>
