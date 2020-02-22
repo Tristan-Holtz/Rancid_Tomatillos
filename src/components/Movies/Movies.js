@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Movies.css';
 import { connect } from 'react-redux';
-import { setMovies } from '../../actions/actions';
+import { setMovies, setRatings } from '../../actions/actions';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getMovies, addUserRating } from '../../apiCalls';
 
@@ -12,8 +12,15 @@ class Movies extends Component {
   }
 
   async componentDidMount() {
+    const { user } = this.props;
+    let userID = user.id
+    console.log('11111111', user)
     try {
       const movies = await getMovies();
+      // const ratings = await getRatings(userID);
+      // let xxx = ratings.ratings
+      // console.log(ratings)
+      // this.props.setRatings(xxx)
       this.props.setMovies(movies);
     } catch (error) {
       console.log(error);
@@ -23,6 +30,7 @@ class Movies extends Component {
   submitUserRating = (event) => {
     const { user } = this.props;
     let userID = user.id;
+    console.log(userID)
     let movieRating = parseInt(event.target.value);
     let movieID = parseInt(event.target.id);
     addUserRating(userID, movieID, movieRating)
@@ -61,12 +69,16 @@ class Movies extends Component {
 
 const mapStateToProps = state => ({
   movies: state.movies,
-  user: state.user
+  user: state.user,
+  ratings: state.ratings
 });
 
 const mapDispatchToProps = dispatch => ({
   setMovies: movies => {
     dispatch(setMovies(movies));
+  },
+  setRatings: ratings => {
+    dispatch(setRatings(ratings))
   }
 });
 

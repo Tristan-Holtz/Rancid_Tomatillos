@@ -42,9 +42,11 @@ export const addUserRating = async (userID, movie_id, rating) => {
   }
   const updatedRating = await res.json();
   return updatedRating;
-  // .then(res = res.json())
-  // .catch(error => console.log(error))
-  // const ret = await res.json();
-  // return ret;
+}
 
+export const getRatings = async (userID) => {
+  return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`)
+    .then(response => response.json())
+    .then(data => data)
+  console.log('getRatings called')
 }
