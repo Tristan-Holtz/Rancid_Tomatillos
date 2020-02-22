@@ -6,6 +6,4 @@ export const getUser = async (url, options) => {
       }
       return res.json()
     })
-    .then(user => {return user})
-    .catch(error => console.log(error))
 }
