@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Movies from '../Movies/Movies';
 import Login from '../Login/Login';
 import Header from '../Header/Header';
