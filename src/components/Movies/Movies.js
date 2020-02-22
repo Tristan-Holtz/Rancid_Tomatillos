@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Movies.css';
+import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
 import { setMovies, setRatings } from '../../actions/actions';
 import MovieDetails from '../MovieDetails/MovieDetails';
@@ -14,13 +16,8 @@ class Movies extends Component {
   async componentDidMount() {
     const { user } = this.props;
     let userID = user.id
-    console.log('11111111', user)
     try {
       const movies = await getMovies();
-      // const ratings = await getRatings(userID);
-      // let xxx = ratings.ratings
-      // console.log(ratings)
-      // this.props.setRatings(xxx)
       this.props.setMovies(movies);
     } catch (error) {
       console.log(error);
@@ -30,7 +27,6 @@ class Movies extends Component {
   submitUserRating = (event) => {
     const { user } = this.props;
     let userID = user.id;
-    console.log(userID)
     let movieRating = parseInt(event.target.value);
     let movieID = parseInt(event.target.id);
     addUserRating(userID, movieID, movieRating)
@@ -60,6 +56,12 @@ class Movies extends Component {
               <option>10</option>
             </select>
           </div>
+          <Link to={{
+            pathname: `/movies/${movie.id}`,
+            state: movie
+          }}>See Movie</Link>
+          {/* <p>{movie.release_date}</p> */}
+          {/* <p>{movie.overview}</p> */}
         </article>
       );
     });
