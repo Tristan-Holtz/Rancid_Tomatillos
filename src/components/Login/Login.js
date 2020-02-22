@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import './Login.scss';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setUser } from '../../actions/actions'
+import { setUser } from '../../actions/actions';
+import { getUser } from '../../apiCalls';
+
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
       password: '',
       email: '',
-      nameError: '',
       emailError: '',
-      passwordError: ''
+      passwordError: '',
+      error: ''
     };
   }
 
@@ -20,35 +22,31 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  verifyInputs = (event) => {
-    event.preventDefault()
-    if(this.state.name !== 'Greg') {
-      this.setState({nameError: 'Incorrect name entered.'})
-    } if(this.state.email !== 'greg@turing.io') {
-      this.setState({emailError: 'Incorrect email entered.'})
-    } if(this.state.password !== 'abc123') {
-      this.setState({passwordError: 'Incorrect password entered.'})
-    } else {
-      this.createUser()
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    (this.state.email !== 'greg@turing.io') && this.setState({emailError: 'Incorrect email entered.'});
+    (this.state.password !== 'abc123') && this.setState({passwordError: 'Incorrect password entered.'});
+    await this.createUser();
+    if (!this.state.error) { this.setState({name: '', email: '', password: ''}) };
+  }
+
+  createUser = async () => {
+    try {
+      const { email, password } = this.state;
+      const user = await getUser(email, password)
+      await this.props.setUser(user.user)
+    } catch ({message}) {
+      this.setState({ message})
     }
   }
 
-  createUser = () => {
-    const user = {name: this.state.name, email: this.state.email, password: this.state.password}
-    this.props.setUser(user)
-  }
-
   render() {
+    const { user } = this.props
+    if (user.name) {
+      return <Redirect to='/'></Redirect>
+    }
     return (
-      <form className="login-form">
-        <label htmlFor="login-name">Name</label>
-        <input
-          onChange={this.handleChange}
-          name="name"
-          id="login-name"
-          placeholder="Name"
-        >
-        </input>
+      <form className="login-form" onSubmit={async (e) => await this.handleSubmit(e)}>
         <p className='error'>{this.state.nameError}</p>
         <label htmlFor="login-email">Email</label>
         <input
@@ -68,7 +66,7 @@ class Login extends Component {
           >
         </input>
         <p className='error'>{this.state.passwordError}</p>
-        <button onClick={this.verifyInputs}>Login</button>
+        <button>Enter</button>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>
         </div>
@@ -82,9 +80,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setUser: user => {
-    dispatch(setUser(user));
-  }
+  setUser: (user) => {dispatch(setUser(user))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -2,7 +2,6 @@ import React from 'react';
 import './MovieDetails.css';
 
 const MovieDetails = ({ movies }) => {
-  console.log(movies);
   return (
     <section className="card-detail-section">
       <h1>MOVIE TITLE</h1>
