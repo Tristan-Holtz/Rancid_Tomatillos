@@ -1,0 +1,47 @@
+.card-detail-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.movie-backdrop {
+  background: center center fixed;
+  height: 450px;
+  min-width: 900px;
+  width: 900px;
+}
+
+.movie-poster {
+  border: 5px solid black;
+  border-radius: 8px;
+  height: 350px;
+  margin: -250px 0 0 25px;
+  width: 225px;
+}
+
+.movie-overview {
+  color: #fff;
+  font-weight: bold;
+}
+
+.movie-description {
+  color: #fff;
+}
+
+.movie-stats-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.movie-stats {
+  padding-left: 2em;
+}
+
+.overview-container {
+  background-color: gray;
+  padding: 1em;
+}
+
+.movie-main {
+  display: flex;
+}
