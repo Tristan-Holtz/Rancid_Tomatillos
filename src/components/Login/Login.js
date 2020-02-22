@@ -22,18 +22,19 @@ class Login extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  verifyInputs = (event) => {
-    event.preventDefault()
-    if(this.state.email !== 'greg@turing.io') {
-      this.setState({emailError: 'Incorrect email entered.'})
-    } if(this.state.password !== 'abc123') {
-      this.setState({passwordError: 'Incorrect password entered.'})
-    } else {
-      this.createUser()
-    }
+  verifyInputs = () => {
+    return this.props.user ? true : false
   }
 
-  createUser = async () => {
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    await this.createUser();
+    (this.state.email !== 'greg@turing.io') && this.setState({emailError: 'Incorrect email entered.'});
+    await (this.state.password !== 'abc123') && this.setState({passwordError: 'Incorrect password entered.'});
+    await this.verifyInputs();
+  }
+
+  createUser = () => {
     const { email, password } = this.state;
     const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/login';
     const postOptions = {
@@ -46,8 +47,9 @@ class Login extends Component {
         'Content-Type': 'application/json'
       }
     }
-    const user = await getUser(url, postOptions)
-    this.props.setUser(user.user)
+    return getUser(url, postOptions)
+      .then(data => this.props.setUser(data.user))
+      .catch(error => console.log(error))
   }
 
   render() {
@@ -80,8 +82,8 @@ class Login extends Component {
           >
         </input>
         <p className='error'>{this.state.passwordError}</p>
-        <Link to={'/movies'} >
-          <div onClick={(e) => this.verifyInputs(e)} >Enter</div>
+        <Link to={'/'} >
+          <div>Enter</div>
         </Link>
         <div className='form-error'>
           <p className='error'>{this.state.error}</p>
@@ -96,9 +98,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setUser: user => {
-    dispatch(setUser(user));
-  }
+  setUser: (user) => {dispatch(setUser(user))}
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
