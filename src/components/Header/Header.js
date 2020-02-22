@@ -13,7 +13,7 @@ class Header extends Component {
       <header>
         <p>{user.name}</p>
         <h1>Rancid Tomatillos</h1>
-        <Link to={user.name ? '/' : '/login'} onClick={this.props.logoutUser} >
+        <Link to={user.name ? '/' : '/login'} onClick={ () => {this.props.logoutUser()}} >
           {user.name ? "Logout" : "Login"}
         </Link>
       </header>
