@@ -30,17 +30,20 @@ class Movies extends Component {
     let movieRating = parseInt(event.target.value);
     let movieID = parseInt(event.target.id);
     addUserRating(userID, movieID, movieRating)
+    // let result = addUserRating(userID, movieID, movieRating)
+    // console.log(result)
   }
 
   render() {
-    const { movies, user } = this.props;
+    const { movies, user, ratings } = this.props;
+    console.log('user check', user)
     const movieCards = movies.map(movie => {
       return (
         <article className="movie-card" key={movie.id}>
           <img className="movie-card-image" src={movie.poster_path} />
           <h1>{movie.title}</h1>
           <h3>Avg. rating: {movie.average_rating}</h3>
-          <div className='user-rating'>
+            {(user) && <div className='user-rating'>
             <h3 className='rating-label'>Your rating:</h3>
             <select id={movie.id} className='rating-dropdown' onChange={ (e) => {this.submitUserRating(e)}}>
               <option>--No rating yet--</option>
@@ -55,7 +58,7 @@ class Movies extends Component {
               <option>9</option>
               <option>10</option>
             </select>
-          </div>
+          </div> }
           <Link to={{
             pathname: `/movies/${movie.id}`,
             state: movie

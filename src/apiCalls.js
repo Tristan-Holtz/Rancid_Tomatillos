@@ -48,5 +48,4 @@ export const getRatings = async (userID) => {
   return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`)
     .then(response => response.json())
     .then(data => data)
-  console.log('getRatings called')
 }
