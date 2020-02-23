@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Movies.css';
+import './Movies.scss';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -15,7 +15,7 @@ class Movies extends Component {
 
   async componentDidMount() {
     const { user } = this.props;
-    let userID = user.id
+    let userID = user.id;
     try {
       const movies = await getMovies();
       this.props.setMovies(movies);
@@ -24,13 +24,13 @@ class Movies extends Component {
     }
   }
 
-  submitUserRating = (event) => {
+  submitUserRating = event => {
     const { user } = this.props;
     let userID = user.id;
     let movieRating = parseInt(event.target.value);
     let movieID = parseInt(event.target.id);
-    addUserRating(userID, movieID, movieRating)
-  }
+    addUserRating(userID, movieID, movieRating);
+  };
 
   render() {
     const { movies, user } = this.props;
@@ -40,9 +40,15 @@ class Movies extends Component {
           <img className="movie-card-image" src={movie.poster_path} />
           <h1>{movie.title}</h1>
           <h3>Avg. rating: {movie.average_rating}</h3>
-          <div className='user-rating'>
-            <h3 className='rating-label'>Your rating:</h3>
-            <select id={movie.id} className='rating-dropdown' onChange={ (e) => {this.submitUserRating(e)}}>
+          <div className="user-rating">
+            <h3 className="rating-label">Your rating:</h3>
+            <select
+              id={movie.id}
+              className="rating-dropdown"
+              onChange={e => {
+                this.submitUserRating(e);
+              }}
+            >
               <option>--No rating yet--</option>
               <option>1</option>
               <option>2</option>
@@ -56,10 +62,14 @@ class Movies extends Component {
               <option>10</option>
             </select>
           </div>
-          <Link to={{
-            pathname: `/movies/${movie.id}`,
-            state: movie
-          }}>See Movie</Link>
+          <Link
+            to={{
+              pathname: `/movies/${movie.id}`,
+              state: movie
+            }}
+          >
+            See Movie
+          </Link>
           {/* <p>{movie.release_date}</p> */}
           {/* <p>{movie.overview}</p> */}
         </article>
@@ -80,7 +90,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setMovies(movies));
   },
   setRatings: ratings => {
-    dispatch(setRatings(ratings))
+    dispatch(setRatings(ratings));
   }
 });
 
