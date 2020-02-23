@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import './Header.scss';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setUser } from '../../actions/actions'
+import { setUser } from '../../actions/actions';
 
-
-class Header extends Component {
+export class Header extends Component {
   render() {
     const { user } = this.props;
 
@@ -13,8 +12,13 @@ class Header extends Component {
       <header>
         <p>{user.name}</p>
         <h1>Rancid Tomatillos</h1>
-        <Link to={user.name ? '/' : '/login'} onClick={ () => {this.props.logoutUser()}} >
-          {user.name ? "Logout" : "Login"}
+        <Link
+          to={user.name ? '/' : '/login'}
+          onClick={() => {
+            this.props.logoutUser();
+          }}
+        >
+          {user.name ? 'Logout' : 'Login'}
         </Link>
       </header>
     );
