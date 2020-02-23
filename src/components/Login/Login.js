@@ -43,8 +43,7 @@ class Login extends Component {
 
   getSetRatings = async () => {
     const { user } = this.props;
-    let userID = user.id;
-    const ratings = await getRatings(userID);
+    const ratings = await getRatings(user.id);
     let userRatings = ratings.ratings;
     this.props.setRatings(userRatings)
   }
