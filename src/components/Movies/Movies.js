@@ -77,8 +77,7 @@ class Movies extends Component {
   }
 
   render() {
-    const { movies, user, ratings } = this.props;
-    console.log('user check', user)
+    const { movies, user } = this.props;
     const movieCards = movies.map(movie => {
       return (
         <article className="movie-card" key={movie.id}>

@@ -51,6 +51,7 @@ export const getRatings = async (userID) => {
 }
 
 export const deleteRating = async (userID, movieID) => {
+  console.log('in fetch', userID, movieID)
   return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings/${movieID}`, {method: 'DELETE'})
     .then(res => res.json())
     .then(data => data)
