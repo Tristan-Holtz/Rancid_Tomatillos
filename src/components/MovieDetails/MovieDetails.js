@@ -3,10 +3,10 @@ import './MovieDetails.scss';
 
 import { connect } from 'react-redux';
 import { setMovies, setRatings } from '../../actions/actions';
-import { getMovies, addUserRating, getRatings, deleteRating } from '../../apiCalls';
+import { addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
 
-export const MovieDetails = ({ location, user, ratings }) => {
+export const MovieDetails = ({ location, user, ratings, setRatings }) => {
   
   const removeRating = async (event) => {
     let movieID = parseInt(event.target.id);
@@ -89,12 +89,6 @@ export const MovieDetails = ({ location, user, ratings }) => {
     </section>
   );
 };
-
-
-
-
-
-
 
 const mapStateToProps = state => ({
   movies: state.movies,

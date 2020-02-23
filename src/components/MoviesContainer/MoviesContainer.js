@@ -17,6 +17,7 @@ export const MoviesContainer = ({ setMovies, movies }) => {
   const card = movies.map(movie => {
     return <MovieCard key={movie.id} movie={movie} />
   })
+  
   return (
     <article className="movie-cards-section">
       {card}
