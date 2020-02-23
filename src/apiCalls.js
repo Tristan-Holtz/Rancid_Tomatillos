@@ -49,3 +49,10 @@ export const getRatings = async (userID) => {
     .then(response => response.json())
     .then(data => data)
 }
+
+export const deleteRating = async (userID, movieID) => {
+  return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings/${movieID}`, {method: 'DELETE'})
+    .then(res => res.json())
+    .then(data => data)
+    .catch(error => console.log(error))
+}

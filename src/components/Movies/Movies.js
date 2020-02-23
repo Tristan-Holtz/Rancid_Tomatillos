@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setMovies, setRatings } from '../../actions/actions';
 import MovieDetails from '../MovieDetails/MovieDetails';
-import { getMovies, addUserRating, getRatings } from '../../apiCalls';
+import { getMovies, addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
 class Movies extends Component {
   constructor() {
@@ -14,7 +14,6 @@ class Movies extends Component {
   }
 
   async componentDidMount() {
-    const { user } = this.props;
     try {
       const movies = await getMovies();
       this.props.setMovies(movies);
@@ -41,16 +40,20 @@ class Movies extends Component {
 
   checkIfRated = (movie) => {
     const { ratings } = this.props;
+    console.log(ratings)
     let resultArr = ratings.find(rating => {
       return rating.movie_id === movie.id
     })
     if(resultArr) {
-      return <h3 className='rating-label'>Your rating: {resultArr.rating}</h3>
+      return <div>
+          <h3 className='rating-label'>Your rating: {resultArr.rating}</h3>
+          <button id={resultArr.id} onClick={(e) => this.removeRating(e)}>Change rating</button>
+        </div>
     } else {
       return <div className='user-rating'>
           <h3 className='rating-label'>Your rating:</h3>
           <select id={movie.id} className='rating-dropdown' onChange={ (e) => {this.submitUserRating(e)}}>
-            <option>--No rating yet--</option>
+            <option>--Add your rating!--</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -64,9 +67,13 @@ class Movies extends Component {
           </select>
         </div>
     }
-      // console.log('user logged in')
-      console.log(ratings)
-      // console.log(movie)
+  }
+
+  removeRating = async (event) => {
+    const { user } = this.props;
+    let movieID = event.target.id;
+    await deleteRating(user.id, movieID)
+    await this.getSetRatings()
   }
 
   render() {
