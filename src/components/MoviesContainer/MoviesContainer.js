@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Movies.css';
+import './MoviesContainer.css';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import { setMovies, setRatings } from '../../actions/actions';
 import MovieDetails from '../MovieDetails/MovieDetails';
 import { getMovies, addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
-class Movies extends Component {
+class MoviesContainer extends Component {
   constructor() {
     super();
     this.state = {};
@@ -111,4 +111,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Movies);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesContainer);
