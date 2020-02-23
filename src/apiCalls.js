@@ -9,14 +9,14 @@ export const getUser = async (email, password) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }
-  const res = await fetch(url, options)
+  };
+  const res = await fetch(url, options);
   if (!res.ok) {
-    throw new Error("Error! No 200 Status Code Found.")
+    throw new Error('Error! No 200 Status Code Found.');
   }
   const user = await res.json();
-  return user
-}
+  return user;
+};
 
 export const getMovies = async () => {
   return fetch('https://rancid-tomatillos.herokuapp.com/api/v1/movies')
@@ -25,6 +25,7 @@ export const getMovies = async () => {
 };
 
 export const addUserRating = async (userID, movie_id, rating) => {
+  console.log(userID);
   const url = `https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`;
   const options = {
     method: 'POST',
@@ -35,18 +36,19 @@ export const addUserRating = async (userID, movie_id, rating) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }
-  const res = await fetch(url, options)
+  };
+  const res = await fetch(url, options);
   if (!res.ok) {
-  throw new Error("Error! No 200 Status Code Found.")
+    throw new Error('Error! No 200 Status Code Found.');
   }
   const updatedRating = await res.json();
   return updatedRating;
-}
+};
 
-export const getRatings = async (userID) => {
-  return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`)
+export const getRatings = async userID => {
+  return fetch(
+    `https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`
+  )
     .then(response => response.json())
-    .then(data => data)
-  console.log('getRatings called')
-}
+    .then(data => data);
+};
