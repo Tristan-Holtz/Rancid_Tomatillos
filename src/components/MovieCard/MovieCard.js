@@ -25,13 +25,13 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
   }
 
   const checkIfRated = (movie) => {
-    let resultArr = ratings.find(rating => {
+    let movieRating = ratings.find(rating => {
       return rating.movie_id === movie.id
     })
-    if(resultArr) {
+    if(movieRating) {
       return <div>
-          <h3 className='rating-label'>Your rating: {resultArr.rating}</h3>
-          <button id={resultArr.id} onClick={(e) => removeRating(e)}>Change rating</button>
+          <h3 className='rating-label'>Your rating: {movieRating.rating}</h3>
+          <button id={movieRating.id} onClick={(e) => removeRating(e)}>Change rating</button>
         </div>
     } else {
       return <div className='user-rating'>
@@ -54,8 +54,8 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
   }
 
   const removeRating = async (event) => {
-    let movieID = event.target.id;
-    await deleteRating(user.id, movieID)
+    let ratingID = event.target.id;
+    await deleteRating(user.id, ratingID)
     await getSetRatings()
   }
 

@@ -25,7 +25,6 @@ export const getMovies = async () => {
 };
 
 export const addUserRating = async (userID, movie_id, rating) => {
-  console.log(userID);
   const url = `https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`;
   const options = {
     method: 'POST',
@@ -53,10 +52,9 @@ export const getRatings = async userID => {
     .then(data => data)
 }
 
-export const deleteRating = async (userID, movieID) => {
-  return fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings/${movieID}`, {method: 'DELETE'})
+export const deleteRating = async (userID, ratingID) => {
+  const res = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings/${ratingID}`, {method: 'DELETE'})
     .then(res => res.json())
     .then(data => data)
     .catch(error => console.log(error))
 }
-

@@ -7,21 +7,21 @@ import { addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
 
 export const MovieDetails = ({ location, user, ratings, setRatings }) => {
-  
+
   const removeRating = async (event) => {
-    let movieID = parseInt(event.target.id);
-    await deleteRating(user.id, movieID)
+    let ratingID = event.target.id;
+    await deleteRating(user.id, ratingID)
     await getSetRatings()
   }
 
   const checkIfRated = (ratings, movie) => {
-    let resultArr = ratings.find(rating => {
+    let movieRating = ratings.find(rating => {
       return rating.movie_id === movie.id
     })
-    if(resultArr) {
+    if(movieRating) {
       return <div>
-          <h3 className='rating-label'>Your rating: {resultArr.rating}</h3>
-          <button id={movie.id} onClick={(e) => removeRating(e)}>Change rating</button>
+          <h3 className='rating-label'>Your rating: {movieRating.rating}</h3>
+          <button id={movieRating.id} onClick={(e) => removeRating(e)}>Change rating</button>
         </div>
     } else {
       return <div className='user-rating'>
@@ -57,7 +57,7 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
     setRatings(userRatings)
   }
 
-  const movie = location.state;  
+  const movie = location.state;
   return (
     <section className="card-detail-section">
       <div className="movie-main">
