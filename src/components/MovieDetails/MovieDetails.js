@@ -9,16 +9,12 @@ import { getMovies, addUserRating, getRatings, deleteRating } from '../../apiCal
 export const MovieDetails = ({ location, user, ratings }) => {
   
   const removeRating = async (event) => {
-    console.log('1121231231231312', user)
     let movieID = parseInt(event.target.id);
-    console.log('999999', movieID)
     await deleteRating(user.id, movieID)
     await getSetRatings()
   }
 
   const checkIfRated = (ratings, movie) => {
-    console.log('000000000', user)
-    console.log(ratings)
     let resultArr = ratings.find(rating => {
       return rating.movie_id === movie.id
     })
@@ -61,9 +57,7 @@ export const MovieDetails = ({ location, user, ratings }) => {
     setRatings(userRatings)
   }
 
-  console.log(location)
   const movie = location.state;  
-  console.log('this is the user', user)
   return (
     <section className="card-detail-section">
       <div className="movie-main">
