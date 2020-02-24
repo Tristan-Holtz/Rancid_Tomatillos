@@ -1,4 +1,4 @@
-import { getUser, getMovies, addUserRating } from './apiCalls.js';
+import { getUser, getMovies, addUserRating, getRatings } from './apiCalls.js';
 const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/'
 
 // getUser
@@ -164,4 +164,63 @@ describe('addUserRating', () => {
 
     expect(addUserRating(userID, movie_id, rating)).rejects.toEqual(Error('Error! No 200 Status Code.'));
   });
+
+  describe('getRatings', () => {
+    const userID = 1;
+    const ratingID = 6;
+    const mockRatings = {
+      "ratings": [
+        {
+          id: userID,
+          user_id: 1,
+          movie_id: 1,
+          rating: ratingID,
+          created_at: "someDate",
+          updated_at: "someDate"
+        }
+      ]
+    }
+
+    beforeEach(() => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockRatings)
+        })
+      });
+    });
+
+    it('should call fetch with the correct url', () => {
+      getRatings(userID);
+
+      expect(window.fetch).toHaveBeenCalledWith(url + `users/${userID}/ratings`);
+    });
+
+    it('should return a resolved promise when response is ok', () => {
+      expect(getRatings(userID)).resolves.toEqual(mockRatings);
+    });
+
+    it('should return error if the resolved promise response is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.resolve({
+          ok: false,
+          json: () => Promise.resolve(mockRatings)
+        });
+      });
+      expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
+      expect(getRatings(userID)).rejects.toThrow(Error('Error! No 200 Status Code.'));
+    });
+
+    it('should return error if the resolved promise response is not ok', () => {
+      window.fetch = jest.fn().mockImplementation(() => {
+        return Promise.reject(Error('Error! No 200 Status Code.'));
+      });
+      expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
+    });
+  });
 });
+
+// describe('deleteRating', () => {
+//   const userID = 1;
+//   const ratingID = 45;
+// });
