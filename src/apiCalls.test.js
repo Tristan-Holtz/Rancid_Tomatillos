@@ -1,4 +1,4 @@
-import { getUser, getMovies, addUserRating, getRatings } from './apiCalls.js';
+import { getUser, getMovies, addUserRating, getRatings, deleteRating } from './apiCalls.js';
 const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/'
 
 // getUser
@@ -43,7 +43,7 @@ describe('getUser', () => {
     expect(getUser(email, password)).resolves.toEqual(mockUser);
   });
 
-  it('should return error if the resolved promise response is ok', () => {
+  it('should return error if the resolved promise response is not ok', () => {
     window.fetch = jest.fn().mockImplementation(() => {
       return Promise.resolve({
         ok: false,
@@ -58,7 +58,7 @@ describe('getUser', () => {
 // getMovies
 describe('getMovies', () => {
   const mockMovies = {
-    'movies': [
+    movies: [
       {
         id: 1,
         title: 'Movie Title',
@@ -87,7 +87,8 @@ describe('getMovies', () => {
   });
 
   it('should return a resolved promise when response is ok', () => {
-    expect(getMovies()).resolves.toEqual(mockMovies);
+    let movies = getMovies();
+    expect(movies).resolves.toEqual(mockMovies);
   });
 
   it('should return error if the resolved promise response is not ok', () => {
@@ -164,63 +165,105 @@ describe('addUserRating', () => {
 
     expect(addUserRating(userID, movie_id, rating)).rejects.toEqual(Error('Error! No 200 Status Code.'));
   });
+});
 
-  describe('getRatings', () => {
-    const userID = 1;
-    const ratingID = 6;
-    const mockRatings = {
-      "ratings": [
-        {
-          id: userID,
-          user_id: 1,
-          movie_id: 1,
-          rating: ratingID,
-          created_at: "someDate",
-          updated_at: "someDate"
-        }
-      ]
-    }
+// getRatings
+describe('getRatings', () => {
+  const userID = 1;
+  const ratingID = 6;
+  const mockRatings = {
+    "ratings": [
+      {
+        id: userID,
+        user_id: 1,
+        movie_id: 1,
+        rating: ratingID,
+        created_at: "someDate",
+        updated_at: "someDate"
+      }
+    ]
+  }
 
-    beforeEach(() => {
-      window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({
-          ok: true,
-          json: () => Promise.resolve(mockRatings)
-        })
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockRatings)
+      })
+    });
+  });
+
+  it('should call fetch with the correct url', () => {
+    getRatings(userID);
+
+    expect(window.fetch).toHaveBeenCalledWith(url + `users/${userID}/ratings`);
+  });
+
+  it('should return a resolved promise when response is ok', () => {
+    expect(getRatings(userID)).resolves.toEqual(mockRatings);
+  });
+
+  it('should return error if the resolved promise response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false,
+        json: () => Promise.resolve(mockRatings)
       });
     });
+    expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
+    expect(getRatings(userID)).rejects.toThrow(Error('Error! No 200 Status Code.'));
+  });
 
-    it('should call fetch with the correct url', () => {
-      getRatings(userID);
-
-      expect(window.fetch).toHaveBeenCalledWith(url + `users/${userID}/ratings`);
+  it('should return error if the resolved promise response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.reject(Error('Error! No 200 Status Code.'));
     });
-
-    it('should return a resolved promise when response is ok', () => {
-      expect(getRatings(userID)).resolves.toEqual(mockRatings);
-    });
-
-    it('should return error if the resolved promise response is not ok', () => {
-      window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.resolve({
-          ok: false,
-          json: () => Promise.resolve(mockRatings)
-        });
-      });
-      expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
-      expect(getRatings(userID)).rejects.toThrow(Error('Error! No 200 Status Code.'));
-    });
-
-    it('should return error if the resolved promise response is not ok', () => {
-      window.fetch = jest.fn().mockImplementation(() => {
-        return Promise.reject(Error('Error! No 200 Status Code.'));
-      });
-      expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
-    });
+    expect(getRatings(userID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
   });
 });
 
-// describe('deleteRating', () => {
-//   const userID = 1;
-//   const ratingID = 45;
-// });
+// deleteRating
+describe('deleteRating', () => {
+  const userID = 1;
+  const ratingID = 45;
+  const deleteOption = { method: 'DELETE' };
+
+  const options = {
+    deleteOption,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  beforeEach(() => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve()
+      })
+    });
+  });
+
+  it('should call fetch with the correct url', () => {
+    const deleteURL = `users/${userID}/ratings/${ratingID}`;
+
+    deleteRating(userID, ratingID);
+
+    expect(window.fetch).toHaveBeenCalledWith(url + deleteURL, deleteOption);
+  });
+
+  it('should return a resolved promise when response is ok', () => {
+    expect(deleteRating(userID, ratingID)).resolves;
+  });
+
+  it('should return error if the resolved promise response is not ok', () => {
+    window.fetch = jest.fn().mockImplementation(() => {
+      return Promise.resolve({
+        ok: false,
+        json: () => Promise.resolve()
+      })
+    })
+
+    expect(deleteRating(userID, ratingID)).rejects.toEqual(Error('Error! No 200 Status Code.'));
+  });
+});
