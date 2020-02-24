@@ -1,5 +1,7 @@
+const homeURL = 'https://rancid-tomatillos.herokuapp.com/api/v1/'
+
 export const getUser = async (email, password) => {
-  const url = 'https://rancid-tomatillos.herokuapp.com/api/v1/login';
+  const url = homeURL + 'login';
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -12,20 +14,24 @@ export const getUser = async (email, password) => {
   };
   const res = await fetch(url, options);
   if (!res.ok) {
-    throw new Error('Error! No 200 Status Code Found.');
+    throw new Error('Error! No 200 Status Code.');
   }
   const user = await res.json();
   return user;
 };
 
 export const getMovies = async () => {
-  return fetch('https://rancid-tomatillos.herokuapp.com/api/v1/movies')
-    .then(response => response.json())
-    .then(movies => movies.movies);
+  const url = homeURL + 'movies';
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('Error! No 200 Status Code.');
+  }
+  const movies = await res.json();
+  return movies;
 };
 
 export const addUserRating = async (userID, movie_id, rating) => {
-  const url = `https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`;
+  const url = homeURL + `users/${userID}/ratings`
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -38,23 +44,28 @@ export const addUserRating = async (userID, movie_id, rating) => {
   };
   const res = await fetch(url, options);
   if (!res.ok) {
-    throw new Error('Error! No 200 Status Code Found.');
+    throw new Error('Error! No 200 Status Code.');
   }
   const updatedRating = await res.json();
   return updatedRating;
 };
 
 export const getRatings = async userID => {
-  return fetch(
-    `https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings`
-  )
-    .then(response => response.json())
-    .then(data => data)
+  const url = homeURL + `users/${userID}/ratings`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error('Error! No 200 Status Code.');
+  }
+  const ratings = await res.json();
+  return ratings;
 }
 
 export const deleteRating = async (userID, ratingID) => {
-  const res = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v1/users/${userID}/ratings/${ratingID}`, {method: 'DELETE'})
-    .then(res => res.json())
-    .then(data => data)
-    .catch(error => console.log(error))
+  const url = homeURL + `users/${userID}/ratings/${ratingID}`;
+  const res = await fetch(url, { method: 'DELETE' } )
+  if (!res.ok) {
+    throw new Error('Error! No 200 Status Code.');
+  }
+  const deletion = await res.json();
+  return deletion;
 }

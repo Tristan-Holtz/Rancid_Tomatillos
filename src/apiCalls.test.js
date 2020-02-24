@@ -56,6 +56,7 @@ describe('getUser', () => {
 });
 
 // getMovies
+
 describe('getMovies', () => {
   const mockMovies = {
     movies: [
@@ -111,6 +112,7 @@ describe('getMovies', () => {
 });
 
 // addUserRating
+
 describe('addUserRating', () => {
   const rating = 5;
   const movie_id = 19;
@@ -168,6 +170,7 @@ describe('addUserRating', () => {
 });
 
 // getRatings
+
 describe('getRatings', () => {
   const userID = 1;
   const ratingID = 6;
@@ -223,6 +226,7 @@ describe('getRatings', () => {
 });
 
 // deleteRating
+
 describe('deleteRating', () => {
   const userID = 1;
   const ratingID = 45;
