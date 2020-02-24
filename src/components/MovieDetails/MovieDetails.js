@@ -1,5 +1,6 @@
 import React from 'react';
 import './MovieDetails.scss';
+import { trailers } from '../../trailers';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -59,6 +60,7 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
   }
 
   const movie = location.state;
+  const movieTrailer = trailers.find(trailer => trailer.trailerID === movie.id);
   return (
     <section className="card-detail-section">
       <Link to= '/'>Go back</Link>
@@ -71,6 +73,15 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
         <div className="overview-container">
           <label className="movie-overview">Overview</label>
           <p className="movie-description">{movie.overview}</p>
+          <iframe
+            title={movie.title + ' trailer'}
+            width="500"
+            height="300"
+            src={movieTrailer.src}
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
         </div>
       </div>
       <article className="movie-stats-container">
@@ -85,7 +96,6 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
           <h3 className="movie-rating">
             Average Rating {movie.average_rating}
           </h3>
-          {(user) && checkIfRated(ratings, movie, user)}
         </div>
       </article>
     </section>
@@ -106,6 +116,5 @@ const mapDispatchToProps = dispatch => ({
     dispatch(setRatings(ratings))
   }
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);
