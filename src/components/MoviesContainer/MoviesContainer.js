@@ -12,12 +12,12 @@ export const MoviesContainer = ({ setMovies, movies }) => {
     getMovies()
       .then(movies => setMovies(movies))
       .catch(error => console.log(error))
-    }, [])
+  }, [])
 
   const card = movies.map(movie => {
     return <MovieCard key={movie.id} movie={movie} />
   })
-  
+
   return (
     <article className="movie-cards-section">
       {card}

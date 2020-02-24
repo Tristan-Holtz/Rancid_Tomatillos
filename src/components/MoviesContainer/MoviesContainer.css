@@ -1,20 +1,14 @@
 .movie-cards-section {
+  background: #F7E3DA;
+  border-top: 4px solid red;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.movie-card {
-  border: red 3px solid;
-  height: 575px;
-  width: 350px;
-  margin: 15px;
-}
-
-.movie-card-image {
-  height: 400px;
-  width: 350px;
+  justify-content: space-between;
+  box-shadow: inset 17px 0px 25px 3px #ffc5aa,
+              inset -17px 0px 25px 3px #ffc5aa,
+              inset 0px 17px 25px 3px #F7E3DA;
+  padding: 2% 3% 2%;
 }
 
 .rating-dropdown {
