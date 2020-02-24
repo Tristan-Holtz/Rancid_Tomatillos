@@ -1,13 +1,68 @@
 .movie-card {
-  border: red 3px solid;
-  height: 575px;
-  width: 350px;
+  border: 3px solid black;
+  height: 400px;
+  width: 280px;
   margin: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 3px 3px 5px 5px #ffc5aa, -2px -2px 5px 5px white;
+  text-align: center;
+  overflow: hidden;
+  transition: 0.5s ease-in-out;
 }
 
 .movie-card-image {
-  height: 400px;
-  width: 350px;
+  height: 100%;
+  width: 100%;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+}
+
+.movie-card-info:hover ~ .movie-card-image {
+  height: 100%;
+  width: 105%;
+  margin-left: -2.5%;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+}
+
+.movie-card-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  opacity: 0%;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  box-shadow: inset 3px 3px 15px 5px #000000,
+              inset -2px -2px 15px 5px #000000;
+  text-shadow: 2px 2px 4px black;
+  transition: 1s ease-in-out;
+  -webkit-transition: 1s ease-in-out;
+  overflow: auto;
+  >h1 {
+    font-size: 2em;
+    padding: 3%;
+  }
+  >div {
+    >h3 {
+      font-size: 2em;
+      padding: 3%;
+    }
+  }
+}
+
+.movie-card-info:hover {
+  background-color: rgba(0,0,0,0.4);
+  opacity: 100%;
+  transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
 }
 
 .rating-dropdown {
