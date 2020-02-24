@@ -8,23 +8,6 @@ export class Header extends Component {
   render() {
     const { user } = this.props;
 
-    // return (
-    //   <header>
-    //     <h1>RANCID<span>TOMATILLOS</span></h1>
-    //     <div>
-    //       <p>{user.name}</p>
-    //       <Link
-    //         className="login-logout-link"
-    //         to={user.name ? '/' : '/login'}
-    //         onClick={() => {
-    //           this.props.logoutUser();
-    //         }}
-    //       >
-    //         {user.name ? 'Logout' : 'Login'}
-    //       </Link>
-    //     </div>
-    //   </header>
-    // );
     return (
       <header>
         <h1>RANCID<span>TOMATILLOS</span></h1>
