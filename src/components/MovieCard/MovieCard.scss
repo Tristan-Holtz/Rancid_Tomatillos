@@ -1,3 +1,10 @@
+.card-and-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1% 0%;
+}
+
 .movie-card {
   border: 3px solid black;
   height: 400px;
@@ -66,7 +73,6 @@
 }
 
 .rating-dropdown {
-  display: inline;
 }
 
 .rating-label {
