@@ -51,19 +51,22 @@ export const MoviesContainer = ({ setMovies, movies }) => {
   }
 
   return (
-    <article className="movie-cards-section">
-      <div>
+    <>
+      <div className='movies-index'>
         <select className='sort-dropdown' onChange={ (e) => {handleSortInput(e)}}>
-        <option>Sort movies by...</option>
-        <option value='high'>Average Rating (Highest)</option>
-        <option value='low'>Average Rating (Lowest)</option>
-        <option value='new'>Release Date (Newest)</option>
-        <option value='old'>Release Date (Oldest)</option>
-        <option value='relevance'>Relevance</option>
-       </select>
+          <option>Sort movies by...</option>
+          <option value='high'>Average Rating (Highest)</option>
+          <option value='low'>Average Rating (Lowest)</option>
+          <option value='new'>Release Date (Newest)</option>
+          <option value='old'>Release Date (Oldest)</option>
+          <option value='relevance'>Relevance</option>
+        </select>
       </div>
-      {card}
-    </article>
+      <article className="movie-cards-section">
+
+        {card}
+      </article>
+    </>
   );
 }
 
