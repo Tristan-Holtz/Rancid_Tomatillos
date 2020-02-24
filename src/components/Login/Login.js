@@ -28,7 +28,7 @@ export class Login extends Component {
     this.state.password !== 'abc123' &&
       this.setState({ passwordError: 'Incorrect password entered.' });
     await this.createUser();
-    await this.getSetRatings();
+    this.props.user && await this.getSetRatings();
     if (!this.state.error) {
       this.setState({ name: '', email: '', password: '' });
     }

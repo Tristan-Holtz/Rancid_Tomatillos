@@ -61,14 +61,19 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
 
   return (
     <article className="movie-card" key={movie.id}>
-      <img className="movie-card-image" src={movie.poster_path} />
-      <h1>{movie.title}</h1>
-      <h3>Avg. rating: {movie.average_rating}</h3>
-        {(user) && checkIfRated(movie)}
       <Link to={{
         pathname: `/movies/${movie.id}`,
         state: movie
-      }}>See Movie</Link>
+      }}>
+        <div className="movie-card-info">
+          <h1>{movie.title}</h1>
+          <div>
+            <h3>{Math.round(movie.average_rating * 10) / 10}/10</h3>
+            {(user) && checkIfRated(movie)}
+          </div>
+        </div>
+        <img className="movie-card-image" src={movie.poster_path} />
+      </Link>
      </article>
   );
 };
