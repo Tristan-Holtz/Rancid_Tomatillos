@@ -22,6 +22,7 @@
 .movie-overview {
   color: #fff;
   font-weight: bold;
+  font-size: 1.5em;
 }
 
 .movie-description {
@@ -42,9 +43,16 @@
 
 .overview-container {
   background-color: gray;
+  display: flex;
+  flex-direction: column;
   padding: 1em;
 }
 
 .movie-main {
   display: flex;
+}
+
+iframe {
+  align-self: center;
+  margin-top: 0.75em;
 }
