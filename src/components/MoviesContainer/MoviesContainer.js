@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './MoviesContainer.css';
-
 import { connect } from 'react-redux';
 import { setMovies, setRatings } from '../../actions/actions';
 import MovieCard from '../MovieCard/MovieCard';
