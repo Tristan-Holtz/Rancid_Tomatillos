@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { MovieCard, mapStateToProps, mapDispatchToProps } from './MovieCard';
 import { setRatings } from '../../actions/actions';
-import { addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
 describe('MovieCard', () => {
   let wrapper;
@@ -57,14 +56,6 @@ describe('MovieCard', () => {
       mappedProps.setRatings(ratings);
 
       expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
-    });
-  });
-
-  describe('submitUserRating', () => {
-    it('should fire addUserRating when called', () => {
-      wrapper.instance().submitUserRating(mockProps.event);
-
-      expect(addUserRating).toHaveBeenCalled();
     });
   });
 });
