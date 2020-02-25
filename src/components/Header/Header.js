@@ -8,22 +8,21 @@ export class Header extends Component {
   render() {
     const { user } = this.props;
 
+    // <p>{user.name}</p>
     return (
       <header>
-        <h1>RANCID<span>TOMATILLOS</span></h1>
-        <div>
-          {user.name && <img src={process.env.PUBLIC_URL + '/user-icon.svg'} alt="user icon" />}
-          <p>{user.name}</p>
+        <img className="rt-logo" src={process.env.PUBLIC_URL + '/rt-logo.png'} alt="rancid tomatoes" />
+          <div className="user-icon-name">
+            {user.name && <img className="user-icon" src={process.env.PUBLIC_URL + '/user-icon.svg'} alt="user icon" />}
+            <p>{user.name}</p>
+          </div>
           <Link
             className="login-logout-link"
             to={user.name ? '/' : '/login'}
-            onClick={() => {
-              this.props.logoutUser();
-            }}
+            onClick={() => { this.props.logoutUser() }}
           >
             {user.name ? 'Logout' : 'Login'}
           </Link>
-        </div>
       </header>
     );
   }

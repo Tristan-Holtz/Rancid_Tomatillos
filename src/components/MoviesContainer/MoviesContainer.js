@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './MoviesContainer.css';
-
 import { connect } from 'react-redux';
-import { setMovies, setRatings } from '../../actions/actions';
+import { setMovies } from '../../actions/actions';
 import MovieCard from '../MovieCard/MovieCard';
 import { getMovies } from '../../apiCalls';
 
@@ -32,25 +31,28 @@ export class MoviesContainer extends Component {
     if(value === 'high') {
       return movies.sort((a, b) => {
         return b.average_rating - a.average_rating;
-      })
-    } if(value === 'low') {
+      });
+    }
+    if (value === 'low') {
       return movies.sort((a, b) => {
-        return a.average_rating - b.average_rating
-      })
-    }if(value === 'old') {
+        return a.average_rating - b.average_rating;
+      });
+    }
+    if (value === 'old') {
       return movies.sort((a, b) => {
         return a.numeric_date - b.numeric_date;
-      })
-    } if(value === 'new') {
+      });
+    }
+    if (value === 'new') {
       return movies.sort((a, b) => {
         return b.numeric_date - a.numeric_date;
-      })
+      });
     } else {
       return movies.sort((a, b) => {
         return a.id - b.id;
-      })
+      });
     }
-  }
+  };
 
   render() {
     const { movies } = this.props;
@@ -63,7 +65,7 @@ export class MoviesContainer extends Component {
     })
   return (
     <article className="movie-cards-section">
-      <div>
+      <div className='movies-index'>
         <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
         <option>Sort movies by...</option>
         <option value='high'>Average Rating (Highest)</option>
@@ -73,11 +75,14 @@ export class MoviesContainer extends Component {
         <option value='default'>Relevance</option>
        </select>
       </div>
-      {card}
-    </article>
+      <article className="movie-cards-section">
+        {card}
+      </article>
+    </>
   );
   }
 }
+
 
 const mapStateToProps = state => ({
   movies: state.movies,
@@ -88,9 +93,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setMovies: movies => {
     dispatch(setMovies(movies));
-  },
-  setRatings: ratings => {
-    dispatch(setRatings(ratings))
   }
 });
 
