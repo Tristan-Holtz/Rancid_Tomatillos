@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { MovieCard, mapStateToProps, mapDispatchToProps } from './MovieCard';
 import { setRatings } from '../../actions/actions';
-import { addUserRating, getRatings, deleteRating } from '../../apiCalls';
 
 describe('MovieCard', () => {
   let wrapper;

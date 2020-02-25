@@ -11,24 +11,24 @@ export class MoviesContainer extends Component {
     this.state = {
       sortValue: '',
       moviesArr: []
-    }
+    };
   }
 
   componentDidMount() {
     getMovies()
       .then(movies => this.props.setMovies(movies))
-      .catch(error => console.log(error))
+      .catch(error => console.log(error));
   }
 
-  handleSortInput = async (event) => {
-    await this.setState({ sortValue: event.target.value })
-    const sortedArray = this.sortArray(this.state.sortValue)
-    this.setState({ moviesArr: [...this.state.moviesArr, sortedArray] })
-  }
+  handleSortInput = async event => {
+    await this.setState({ sortValue: event.target.value });
+    const sortedArray = this.sortArray(this.state.sortValue);
+    this.setState({ moviesArr: [...this.state.moviesArr, sortedArray] });
+  };
 
-  sortArray = (value) => {
+  sortArray = value => {
     const { movies } = this.props;
-    if(value === 'high') {
+    if (value === 'high') {
       return movies.sort((a, b) => {
         return b.average_rating - a.average_rating;
       });
@@ -56,40 +56,41 @@ export class MoviesContainer extends Component {
 
   render() {
     const { movies } = this.props;
-    if(this.state.moviesArr) {
-      const movies = this.state.moviesArr
-    }
     const card = movies.map(movie => {
-      movie["numeric_date"] = Number(movie.release_date.split('-').join(''));
-      return <MovieCard key={movie.id} movie={movie} />
-    })
+      movie['numeric_date'] = Number(movie.release_date.split('-').join(''));
+      return <MovieCard key={movie.id} movie={movie} />;
+    });
+
     return (
       <article>
-        <div className='movies-index'>
-          <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
+        <div className="movies-index">
+          <select
+            className="sort-dropdown"
+            onChange={e => {
+              this.handleSortInput(e);
+            }}
+          >
             <option>Sort Movies</option>
-            <option value='high'>Average Rating (Highest)</option>
-            <option value='low'>Average Rating (Lowest)</option>
-            <option value='new'>Release Date (Newest)</option>
-            <option value='old'>Release Date (Oldest)</option>
-            <option value='default'>Relevance</option>
+            <option value="high">Average Rating (Highest)</option>
+            <option value="low">Average Rating (Lowest)</option>
+            <option value="new">Release Date (Newest)</option>
+            <option value="old">Release Date (Oldest)</option>
+            <option value="default">Relevance</option>
           </select>
         </div>
-        <section className="movie-cards-section">
-          {card}
-        </section>
+        <section className="movie-cards-section">{card}</section>
       </article>
-    )
+    );
   }
 }
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
   movies: state.movies,
   user: state.user,
   ratings: state.ratings
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   setMovies: movies => {
     dispatch(setMovies(movies));
   }
