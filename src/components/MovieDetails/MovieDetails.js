@@ -96,6 +96,7 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
           <h3 className="movie-rating">
             Average Rating {movie.average_rating}
           </h3>
+          {(user) && checkIfRated(ratings, movie, user)}
         </div>
       </article>
     </section>
