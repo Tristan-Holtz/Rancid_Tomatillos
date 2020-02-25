@@ -23,7 +23,7 @@ export class MoviesContainer extends Component {
 
   handleSortInput = async (event) => {
     await this.setState({ sortValue: event.target.value })
-    let sortedArray = this.sortArray(this.state.sortValue)
+    const sortedArray = this.sortArray(this.state.sortValue)
     this.setState({ moviesArr: [...this.state.moviesArr, sortedArray] })
   }
 
