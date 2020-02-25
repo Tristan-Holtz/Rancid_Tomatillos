@@ -29,15 +29,22 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
       return rating.movie_id === movie.id
     })
     if(movieRating) {
-      return <div>
-          <h3 className='rating-label'>Your rating: {movieRating.rating}</h3>
-          <button id={movieRating.id} onClick={(e) => removeRating(e)}>Change rating</button>
-        </div>
+      return <div className='complete-rating'>
+        <p className='rating-label'><span>Your Rating:</span> {movieRating.rating}/10</p>
+        <button
+          className='change-rating-btn'
+          id={movieRating.id}
+          onClick={
+            (e) => removeRating(e)
+          }
+        >
+          (<span>Change rating</span>)
+        </button>
+      </div>
     } else {
       return <div className='user-rating'>
-          <h3 className='rating-label'>Your rating:</h3>
           <select id={movie.id} className='rating-dropdown' onChange={ (e) => {submitUserRating(e)}}>
-            <option>--Add your rating!--</option>
+            <option>Rate This Movie</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -68,8 +75,9 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
         }}>
           <div className="movie-card-info">
             <h1>{movie.title}</h1>
-            <div>
-              <h3>{Math.round(movie.average_rating * 10) / 10}/10</h3>
+            <div className="tomato-rating">
+              {movie.average_rating >= 6 && <img className="tomato-logo" src={process.env.PUBLIC_URL + '/tomato-logo.png'} alt="tomato logo" />}
+              <h3 className="avg-rating-card">{Math.round(movie.average_rating * 10) / 10}/10</h3>
             </div>
           </div>
           <img className="movie-card-image" src={movie.poster_path} />

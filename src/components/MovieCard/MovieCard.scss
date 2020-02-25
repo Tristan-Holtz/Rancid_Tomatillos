@@ -6,10 +6,11 @@
 }
 
 .movie-card {
-  border: 3px solid black;
+  border: 3px solid white;
   height: 400px;
   width: 280px;
   margin: 15px;
+  margin-bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,10 +38,10 @@
 }
 
 .movie-card-info {
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  color: white;
   opacity: 0%;
   height: 100%;
   width: 100%;
@@ -48,32 +49,109 @@
   top: 0px;
   box-shadow: inset 3px 3px 15px 5px #000000,
               inset -2px -2px 15px 5px #000000;
-  text-shadow: 2px 2px 4px black;
+  text-shadow: 0px 0px 15px black;
   transition: 0.5s;
   -webkit-transition: 0.5s;
-  overflow: auto;
+  overflow: hidden;
   >h1 {
-    font-size: 1.8em;
-    padding: 3%;
-  }
-  >div {
-    >h3 {
-      font-size: 2em;
-      padding: 3%;
-    }
+    font-family: 'Neuton';
+    font-size: 2.8em;
+    line-height: 85%;
+    margin: 2% 1% 0%;
+    padding: 2%;
   }
 }
 
 .movie-card-info:hover {
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(47,147,46,0.4);
   opacity: 100%;
-  transition: 0.9s ease-in-out;
-  -webkit-transition: 0.9s ease-in-out;
+  transition: 0.2s;
+  -webkit-transition: 0.2s;
+}
+
+.tomato-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.tomato-logo {
+  width: 3em;
+  align-self: center;
+}
+
+.avg-rating-card {
+  font-size: 2.2em;
+  letter-spacing: 0.2em;
+  padding: 3%;
 }
 
 .rating-dropdown {
+  background: #ff5e6c;
+  border: 3px solid #ff5e6c;
+  border-radius: 4100px;
+  box-shadow: inset 0px 0px 0px 2px white;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  height: 40px;
+  width: 210px;
+  margin-top: -4px;
+  position: relative;
+  text-shadow: 0px 0px 2px black,
+                0px 0px 2px black;
+  box-shadow: 3.5px 4px 3px 2px #ffc5aa,
+              inset 0px 0px 6px 3px black;
+  z-index: 500;
+}
+
+.complete-rating {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 500;
 }
 
 .rating-label {
-  display: inline;
+  background: #2F932E;
+  border: 3px solid #69E781;
+  border-radius: 6px;
+  box-shadow: 3.5px 4px 3px 2px #ffc5aa,
+              inset 0px 0px 6px 3px black;
+  color: #69E781;
+  font-family: 'Baloo';
+  font-size: 24px;
+  height: 34px;
+  width: 204px;
+  margin: 0;
+  margin-top: -4px;
+  position: relative;
+  text-align: center;
+  text-shadow: 0px 0px 2px black,
+                0px 0px 2px black;
+  z-index: 500;
+  >span {
+    // font-size: 20px;
+    color: white;
+    // text-shadow: none;
+  }
+}
+
+.rating-label:hover {
+  content:"Completed!";
+}
+
+.change-rating-btn {
+  background: none;
+  border: none;
+  color: dodgerBlue;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  font-size: 18px;
+  margin-top: 1%;
+  >span {
+    text-decoration: underline;
+  }
 }
