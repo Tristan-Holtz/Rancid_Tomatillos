@@ -1,31 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import './MoviesContainer.css';
 import { connect } from 'react-redux';
 import { setMovies } from '../../actions/actions';
 import MovieCard from '../MovieCard/MovieCard';
 import { getMovies } from '../../apiCalls';
 
-export const MoviesContainer = ({ setMovies, movies }) => {
-  useEffect(() => {
+export class MoviesContainer extends Component {
+  constructor() {
+    super();
+    this.state = {
+      sortValue: '',
+      moviesArr: []
+    }
+  }
+
+  componentDidMount() {
     getMovies()
-      .then(movies => setMovies(movies))
-      .catch(error => console.log(error));
-  }, []);
+      .then(movies => this.props.setMovies(movies))
+      .catch(error => console.log(error))
+  }
 
-  const card = movies.map(movie => {
-    movie['numeric_date'] = Number(movie.release_date.split('-').join(''));
-    return <MovieCard key={movie.id} movie={movie} />;
-  });
+  handleSortInput = async (event) => {
+    await this.setState({ sortValue: event.target.value })
+    const sortedArray = this.sortArray(this.state.sortValue)
+    this.setState({ moviesArr: [...this.state.moviesArr, sortedArray] })
+  }
 
-  const handleSortInput = event => {
-    let eventValue = event.target.value;
-    let sortedArray = sortArray(eventValue);
-    setMovies(sortedArray);
-    // movies array is updated within store, but yet the DOM is not re-rendering based off the new order of the movies in the store
-  };
-
-  const sortArray = value => {
-    if (value === 'high') {
+  sortArray = (value) => {
+    const { movies } = this.props;
+    if(value === 'high') {
       return movies.sort((a, b) => {
         return b.average_rating - a.average_rating;
       });
@@ -51,29 +54,35 @@ export const MoviesContainer = ({ setMovies, movies }) => {
     }
   };
 
+  render() {
+    const { movies } = this.props;
+    if(this.state.moviesArr) {
+      const movies = this.state.moviesArr
+    }
+    const card = movies.map(movie => {
+      movie["numeric_date"] = Number(movie.release_date.split('-').join(''));
+      return <MovieCard key={movie.id} movie={movie} />
+    })
   return (
     <article className="movie-cards-section">
       <div className='movies-index'>
-        <select
-          className="sort-dropdown"
-          onChange={e => {
-            handleSortInput(e);
-          }}
-        >
-          <option>Sort movies by...</option>
-          <option value="high">Average Rating (Highest)</option>
-          <option value="low">Average Rating (Lowest)</option>
-          <option value="new">Release Date (Newest)</option>
-          <option value="old">Release Date (Oldest)</option>
-          <option value="relevance">Relevance</option>
-        </select>
+        <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
+        <option>Sort movies by...</option>
+        <option value='high'>Average Rating (Highest)</option>
+        <option value='low'>Average Rating (Lowest)</option>
+        <option value='new'>Release Date (Newest)</option>
+        <option value='old'>Release Date (Oldest)</option>
+        <option value='default'>Relevance</option>
+       </select>
       </div>
       <article className="movie-cards-section">
         {card}
       </article>
     </>
   );
-};
+  }
+}
+
 
 const mapStateToProps = state => ({
   movies: state.movies,
