@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './MoviesContainer.css';
-
 import { connect } from 'react-redux';
 import { setMovies } from '../../actions/actions';
 import MovieCard from '../MovieCard/MovieCard';
@@ -54,7 +53,7 @@ export const MoviesContainer = ({ setMovies, movies }) => {
 
   return (
     <article className="movie-cards-section">
-      <div>
+      <div className='movies-index'>
         <select
           className="sort-dropdown"
           onChange={e => {
@@ -69,8 +68,10 @@ export const MoviesContainer = ({ setMovies, movies }) => {
           <option value="relevance">Relevance</option>
         </select>
       </div>
-      {card}
-    </article>
+      <article className="movie-cards-section">
+        {card}
+      </article>
+    </>
   );
 };
 
