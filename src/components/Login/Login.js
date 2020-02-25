@@ -11,8 +11,6 @@ export class Login extends Component {
     this.state = {
       password: '',
       email: '',
-      emailError: '',
-      passwordError: '',
       error: ''
     };
   }
@@ -23,14 +21,10 @@ export class Login extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    this.state.email !== 'greg@turing.io' &&
-      this.setState({ emailError: 'Incorrect email entered.' });
-    this.state.password !== 'abc123' &&
-      this.setState({ passwordError: 'Incorrect password entered.' });
     await this.createUser();
     this.props.user && await this.getSetRatings();
     if (!this.state.error) {
-      this.setState({ name: '', email: '', password: '' });
+      this.setState({email: '', password: '' });
     }
   };
 
