@@ -63,26 +63,25 @@ export class MoviesContainer extends Component {
       movie["numeric_date"] = Number(movie.release_date.split('-').join(''));
       return <MovieCard key={movie.id} movie={movie} />
     })
-  return (
-    <article className="movie-cards-section">
-      <div className='movies-index'>
-        <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
-        <option>Sort movies by...</option>
-        <option value='high'>Average Rating (Highest)</option>
-        <option value='low'>Average Rating (Lowest)</option>
-        <option value='new'>Release Date (Newest)</option>
-        <option value='old'>Release Date (Oldest)</option>
-        <option value='default'>Relevance</option>
-       </select>
-      </div>
+    return (
       <article className="movie-cards-section">
-        {card}
+        <div className='movies-index'>
+          <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
+            <option>Sort Movies</option>
+            <option value='high'>Average Rating (Highest)</option>
+            <option value='low'>Average Rating (Lowest)</option>
+            <option value='new'>Release Date (Newest)</option>
+            <option value='old'>Release Date (Oldest)</option>
+            <option value='default'>Relevance</option>
+          </select>
+        </div>
+        <article className="movie-cards-section">
+          {card}
+        </article>
       </article>
-    </article>
-  )
+    )
   }
 }
-
 
 const mapStateToProps = state => ({
   movies: state.movies,

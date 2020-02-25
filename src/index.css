@@ -1,9 +1,19 @@
+html, select {
+  font-family: 'Baloo';
+}
+
+html, option {
+  font-family: 'Baloo';
+  text-align: left;
+}
+
 body {
   background: #F7E3DA;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  font-family: 'Baloo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

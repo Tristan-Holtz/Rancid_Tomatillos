@@ -21,7 +21,7 @@ export class Header extends Component {
             to={user.name ? '/' : '/login'}
             onClick={() => { this.props.logoutUser() }}
           >
-            {user.name ? 'Logout' : 'Login'}
+            {user.name ? 'LOGOUT' : 'LOGIN'}
           </Link>
       </header>
     );
