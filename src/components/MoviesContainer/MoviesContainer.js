@@ -53,7 +53,7 @@ export const MoviesContainer = ({ setMovies, movies }) => {
     <>
       <div className='movies-index'>
         <select className='sort-dropdown' onChange={ (e) => {handleSortInput(e)}}>
-          <option>Sort movies by...</option>
+          <option>Sort Movies</option>
           <option value='high'>Average Rating (Highest)</option>
           <option value='low'>Average Rating (Lowest)</option>
           <option value='new'>Release Date (Newest)</option>

@@ -1,10 +1,21 @@
 .movies-index {
-  background: #ffc5aa;
+  background: #FECBB4;
   border-top: 4px solid red;
+  padding: 0% 5%;
 }
 
 .sort-dropdown {
-  text-align: center;
+  background: #ff5e6c;
+  border: 2px solid #ff5e6c;
+  box-shadow: inset 0px 0px 0px 3px #FECBB4;
+  color: #F7E3DA;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  height: 50px;
+  width: 200px;
+  margin: 3% 4% 1% 1%;
+  text-shadow: 0px 0px 3px red;
 }
 
 .movie-cards-section {
@@ -16,8 +27,9 @@
   justify-content: space-between;
   box-shadow: inset 17px 0px 25px 3px #ffc5aa,
               inset -17px 0px 25px 3px #ffc5aa,
-              inset 0px 17px 25px 3px #F7E3DA;
-  padding: 2% 3% 2%;
+              inset 0px 17px 25px 3px #F7E3DA,
+              inset 0px -17px 25px 3px #F7E3DA;
+  padding: 0.3% 5% 2% 5%;
 }
 
 .rating-label {
