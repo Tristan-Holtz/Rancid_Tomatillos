@@ -7,8 +7,6 @@ import { setUser } from '../../actions/actions';
 export class Header extends Component {
   render() {
     const { user } = this.props;
-
-    // <p>{user.name}</p>
     return (
       <header>
         <img className="rt-logo" src={process.env.PUBLIC_URL + '/rt-logo.png'} alt="rancid tomatoes" />

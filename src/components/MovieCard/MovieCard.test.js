@@ -59,12 +59,4 @@ describe('MovieCard', () => {
       expect(mockDispatch).toHaveBeenCalledWith(actionToDispatch);
     });
   });
-
-  describe('submitUserRating', () => {
-    it('should fire addUserRating when called', () => {
-      wrapper.instance().submitUserRating(mockProps.event);
-
-      expect(addUserRating).toHaveBeenCalled();
-    });
-  });
 });

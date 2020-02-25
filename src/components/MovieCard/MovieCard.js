@@ -36,9 +36,9 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
               (e) => {removeRating(e)}
             }
           >
-          (<span id={movieRating.id}>Change rating</span>)
-        </button>
-      </div>
+            (<span id={movieRating.id}>Change rating</span>)
+          </button>
+        </div>
       )
     } else {
       return (
@@ -68,9 +68,7 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
   };
 
   const removeRating = async event => {
-    console.log(event.target)
     let ratingID = event.target.id;
-    console.log(ratingID)
     await deleteRating(user.id, ratingID);
     await getSetRatings();
   };

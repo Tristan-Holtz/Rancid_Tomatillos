@@ -12,7 +12,7 @@ export const getUser = async (email, password) => {
   };
   const res = await fetch(url, options);
   if (!res.ok) {
-    throw new Error('Error! No 200 Status Code Found.');
+    throw new Error('Invalid login credentials.');
   }
   const user = await res.json();
   return user;
