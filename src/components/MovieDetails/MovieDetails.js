@@ -21,15 +21,22 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
       return rating.movie_id === movie.id
     })
     if(movieRating) {
-      return <div>
-          <h3 className='rating-label'>Your rating: {movieRating.rating}</h3>
-          <button id={movieRating.id} onClick={(e) => removeRating(e)}>Change rating</button>
+      return <div className='complete-rating'>
+          <p className='rating-label'>Your rating: {movieRating.rating}</p>
+          <button 
+            className='change-rating-btn'
+            id={movieRating.id} 
+            onClick={ 
+              (e) => removeRating(e)
+            }
+          >
+            (<span id={movieRating.id}>Change rating</span>)
+          </button>
         </div>
     }
       return <div className='user-rating'>
-        <h3 className='rating-label'>Your rating:</h3>
         <select id={movie.id} className='rating-dropdown' onChange={(e) => {submitUserRating(e)}}>
-          <option>--Add your rating!--</option>
+          <option>Rate This Movie</option>
           <option>1</option>
           <option>2</option>
           <option>3</option>
@@ -93,7 +100,7 @@ export const MovieDetails = ({ location, user, ratings, setRatings }) => {
           <h1 className="movie-title">{movie.title}</h1>
           <p className="movie-date">Release Date {movie.release_date}</p>
           <h3 className="movie-rating">
-            Average Rating {movie.average_rating}
+            Average Rating {Math.round(movie.average_rating * 10) / 10}/10
           </h3>
           {(user) && checkIfRated(ratings, movie, user)}
         </div>
