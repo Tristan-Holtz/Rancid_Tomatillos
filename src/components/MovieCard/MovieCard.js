@@ -33,12 +33,13 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
             className='change-rating-btn'
             id={movieRating.id}
             onClick={
-              (e) => removeRating(e)
+              (e) => {removeRating(e)}
             }
           >
-          (<span>Change rating</span>)
+          (<span id={movieRating.id}>Change rating</span>)
         </button>
       </div>
+      )
     } else {
       return (
         <div className='user-rating'>
@@ -67,7 +68,9 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
   };
 
   const removeRating = async event => {
+    console.log(event.target)
     let ratingID = event.target.id;
+    console.log(ratingID)
     await deleteRating(user.id, ratingID);
     await getSetRatings();
   };

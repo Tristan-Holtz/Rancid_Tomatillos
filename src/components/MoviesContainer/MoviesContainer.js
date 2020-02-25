@@ -64,7 +64,7 @@ export class MoviesContainer extends Component {
       return <MovieCard key={movie.id} movie={movie} />
     })
     return (
-      <article className="movie-cards-section">
+      <article>
         <div className='movies-index'>
           <select className='sort-dropdown' onChange={ (e) => {this.handleSortInput(e)}}>
             <option>Sort Movies</option>
@@ -75,9 +75,9 @@ export class MoviesContainer extends Component {
             <option value='default'>Relevance</option>
           </select>
         </div>
-        <article className="movie-cards-section">
+        <section className="movie-cards-section">
           {card}
-        </article>
+        </section>
       </article>
     )
   }
