@@ -78,8 +78,8 @@ export class MoviesContainer extends Component {
       <article className="movie-cards-section">
         {card}
       </article>
-    </>
-  );
+    </article>
+  )
   }
 }
 
