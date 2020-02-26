@@ -22,9 +22,9 @@ export class Login extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     await this.createUser();
-    this.props.user && await this.getSetRatings();
+    this.props.user && (await this.getSetRatings());
     if (!this.state.error) {
-      this.setState({email: '', password: '' });
+      this.setState({ email: '', password: '' });
     }
   };
 
@@ -66,6 +66,7 @@ export class Login extends Component {
         <p className="error">{this.state.emailError}</p>
         <label htmlFor="login-password">Password</label>
         <input
+          type="password"
           onChange={this.handleChange}
           name="password"
           id="login-password"
