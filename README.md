@@ -20,7 +20,6 @@ https://rancid-tomatoes.herokuapp.com/
 1. Fork or clone down this repo
 1. In your terminal, run `npm i`
 1. Run `npm start` and use your browser to navigate the app
-1. 
 
 ### Stack/Technologies
 - React
@@ -30,7 +29,7 @@ https://rancid-tomatoes.herokuapp.com/
 - HTML / CSS
 
 ### Screenshots
-![Screen Shot 2020-02-25 at 5](https://user-images.githubusercontent.com/46171611/75306794-4bec1580-5807-11ea-8eba-f9380f1050e3.png)
+![Screen Shot 2020-02-25 at 8](https://user-images.githubusercontent.com/46171611/75309390-2adaf300-580e-11ea-99ac-2235fb9a2d9d.png)
 
 <img width="1431" alt="Screen Shot 2020-02-25 at 7 36 34 PM" src="https://user-images.githubusercontent.com/46171611/75306445-54901c00-5806-11ea-8ab3-806315b44b1c.png">
 
