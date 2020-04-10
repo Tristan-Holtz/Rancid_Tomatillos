@@ -10,23 +10,23 @@ export class MoviesContainer extends Component {
     super();
     this.state = {
       sortValue: '',
-      moviesArr: []
+      moviesArr: [],
     };
   }
 
   componentDidMount() {
     getMovies()
-      .then(movies => this.props.setMovies(movies))
-      .catch(error => console.log(error));
+      .then((movies) => this.props.setMovies(movies))
+      .catch((error) => console.log(error));
   }
 
-  handleSortInput = async event => {
+  handleSortInput = async (event) => {
     await this.setState({ sortValue: event.target.value });
     const sortedArray = this.sortArray(this.state.sortValue);
     this.setState({ moviesArr: [...this.state.moviesArr, sortedArray] });
   };
 
-  sortArray = value => {
+  sortArray = (value) => {
     const { movies } = this.props;
     if (value === 'high') {
       return movies.sort((a, b) => {
@@ -56,7 +56,7 @@ export class MoviesContainer extends Component {
 
   render() {
     const { movies } = this.props;
-    const card = movies.map(movie => {
+    const card = movies.map((movie) => {
       movie['numeric_date'] = Number(movie.release_date.split('-').join(''));
       return <MovieCard key={movie.id} movie={movie} />;
     });
@@ -66,7 +66,7 @@ export class MoviesContainer extends Component {
         <div className="movies-index">
           <select
             className="sort-dropdown"
-            onChange={e => {
+            onChange={(e) => {
               this.handleSortInput(e);
             }}
           >
@@ -84,16 +84,16 @@ export class MoviesContainer extends Component {
   }
 }
 
-export const mapStateToProps = state => ({
+export const mapStateToProps = (state) => ({
   movies: state.movies,
   user: state.user,
-  ratings: state.ratings
+  ratings: state.ratings,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  setMovies: movies => {
+export const mapDispatchToProps = (dispatch) => ({
+  setMovies: (movies) => {
     dispatch(setMovies(movies));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesContainer);
