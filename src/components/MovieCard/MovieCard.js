@@ -21,36 +21,31 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
     setRatings(userRatings);
   };
 
-  const checkIfRated = (movie) => {
-    let movieRating = ratings.find(rating => {
-      return rating.movie_id === movie.id
+  const checkIfRated = movie => {
+    const movieRating = ratings.find(rating => {
+      return rating.movie_id === movie.id;
     });
-    if(movieRating) {
+    if (movieRating) {
       return (
-        <div className='complete-rating'>
-          <p className='rating-label'><span>Your Rating:</span> {movieRating.rating}/10</p>
-          <button
-            className='change-rating-btn'
-            id={movieRating.id}
-            onClick={
-              (e) => {removeRating(e)}
-            }
-          >
-            (<span id={movieRating.id}>Change rating</span>)
+        <div>
+          <h3 className="rating-label">Your rating: {movieRating.rating}</h3>
+          <button id={movieRating.id} onClick={e => removeRating(e)}>
+            Change rating
           </button>
         </div>
-      )
+      );
     } else {
       return (
-        <div className='user-rating'>
+        <div className="user-rating">
+          <h3 className="rating-label">Your rating:</h3>
           <select
             id={movie.id}
-            className='rating-dropdown'
+            className="rating-dropdown"
             onChange={e => {
               submitUserRating(e);
             }}
           >
-            <option>Rate This Movie</option>
+            <option>--Add your rating!--</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -74,25 +69,22 @@ export const MovieCard = ({ movie, setRatings, user, ratings }) => {
   };
 
   return (
-    <article className="card-and-rating">
-      <article className="movie-card" key={movie.id}>
-        <Link
-          to={{
-            pathname: `/movies/${movie.id}`,
-            state: movie
-          }}
-        >
-          <div className="movie-card-info">
-            <h1>{movie.title}</h1>
-            <div className="tomato-rating">
-              {movie.average_rating >= 6 && <img className="tomato-logo" src={process.env.PUBLIC_URL + '/tomato-logo.png'} alt="tomato logo" />}
-              <h3 className="avg-rating-card">{Math.round(movie.average_rating * 10) / 10}/10</h3>
-            </div>
+    <article className="movie-card" key={movie.id}>
+      <Link
+        to={{
+          pathname: `/movies/${movie.id}`,
+          state: movie
+        }}
+      >
+        <div className="movie-card-info">
+          <h1>{movie.title}</h1>
+          <div>
+            <h3>{Math.round(movie.average_rating * 10) / 10}/10</h3>
+            {user && checkIfRated(movie)}
           </div>
-          <img className="movie-card-image" src={movie.poster_path} />
-        </Link>
-      </article>
-      {(user) && checkIfRated(movie)}
+        </div>
+        <img className="movie-card-image" src={movie.poster_path} />
+      </Link>
     </article>
   );
 };
